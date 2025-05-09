@@ -27,9 +27,11 @@ COPY sbin/reboot sbin/shutdown sbin/service /sbin/
 RUN chmod +x ${START_SCRIPT} /sbin/reboot /sbin/shutdown /sbin/service \
  && dos2unix /sbin/reboot /sbin/shutdown /sbin/service
 
-ADD http://edomi.de/download/install/${EDOMI_VERSION} ${EDOMI_ARCHIVE}
-RUN mkdir ${EDOMI_EXTRACT_PATH} \
- && tar -xf ${EDOMI_ARCHIVE} -C ${EDOMI_EXTRACT_PATH}
+# use a local, already extracted Edomi archive instead of downloading one
+# the archive must be extracted under /tmp/edomi/
+#ADD http://edomi.de/download/install/${EDOMI_VERSION} ${EDOMI_ARCHIVE}
+#RUN mkdir ${EDOMI_EXTRACT_PATH} \
+# && tar -xf ${EDOMI_ARCHIVE} -C ${EDOMI_EXTRACT_PATH}
 
 # Copy modified install script into image
 COPY bin/install.sh ${EDOMI_EXTRACT_PATH}
